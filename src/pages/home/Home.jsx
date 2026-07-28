@@ -1,11 +1,11 @@
 import HeroComponent from "../../components/heroComponent/HeroComponent";
-import Features from "../../components/features/Features";
-import styles from "./Home.module.scss";
+import FeaturesComponent from "../../components/featuresComponent/FeaturesComponent";
+
 function Home() {
   return (
-    <main className={styles.main}>
+    <main className="main">
       <HeroComponent />
-      <Features />
+      <FeaturesComponent />
     </main>
   );
 }

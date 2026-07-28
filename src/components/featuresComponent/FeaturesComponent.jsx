@@ -1,7 +1,7 @@
-import Feature from "../feature/Feature";
-import styles from "./Features.module.scss";
+import FeatureComponent from "../featureComponent/FeatureComponent";
+import styles from "./FeaturesComponent.module.scss";
 
-function Features() {
+function FeaturesComponent() {
   const features = {
     feature1: {
       img: "../../../public/assets/icon-chat.png",
@@ -25,11 +25,11 @@ function Features() {
   return (
     <section className={styles.features}>
       <h2 className="sr-only">Features</h2>
-      <Feature feature={features.feature1} />
-      <Feature feature={features.feature2} />
-      <Feature feature={features.feature3} />
+      <FeatureComponent feature={features.feature1} />
+      <FeatureComponent feature={features.feature2} />
+      <FeatureComponent feature={features.feature3} />
     </section>
   );
 }
 
-export default Features;
+export default FeaturesComponent;

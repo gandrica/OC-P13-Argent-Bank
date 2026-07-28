@@ -1,8 +1,13 @@
+import FormComponent from "../../components/formComponent/FormComponent";
 import styles from "./Login.module.scss";
 function Login() {
   return (
-    <main className={styles.main}>
-      <h1>Login Main Container</h1>
+    <main className="main bg-dark">
+      <section className={styles.signInContent}>
+        <i className="fa fa-user-circle" style={{ fontSize: "16px" }}></i>
+        <h1>Sign In</h1>
+        <FormComponent />
+      </section>
     </main>
   );
 }

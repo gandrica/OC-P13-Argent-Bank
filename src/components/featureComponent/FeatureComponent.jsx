@@ -1,5 +1,5 @@
-import styles from "./Feature.module.scss";
-function Feature({ feature }) {
+import styles from "./FeatureComponent.module.scss";
+function FeatureComponent({ feature }) {
   return (
     <div className={styles.featureItem}>
       <img src={feature.img} alt="Chat Icon" className={styles.featureIcon} />
@@ -9,4 +9,4 @@ function Feature({ feature }) {
   );
 }
 
-export default Feature;
+export default FeatureComponent;
