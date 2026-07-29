@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  profile: "",
   jwt: "",
 };
 
@@ -10,6 +11,9 @@ const authentificationSLice = createSlice({
   reducers: {
     token_search: (state, action) => {
       state.jwt = action.payload;
+    },
+    profile_search: (state, action) => {
+      state.profile = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -21,6 +25,6 @@ const authentificationSLice = createSlice({
 console.log(authentificationSLice);
 
 const authentificationReducer = authentificationSLice.reducer;
-export const { token_search } = authentificationSLice.actions;
+export const { token_search, profile_search } = authentificationSLice.actions;
 
 export default authentificationReducer;
