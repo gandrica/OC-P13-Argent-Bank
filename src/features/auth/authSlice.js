@@ -1,49 +1,45 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchWithAuth } from "../../services/fetchWithAuth";
+
+const tokenFromStorage = localStorage.getItem("token");
+console.log(tokenFromStorage);
 
 const initialState = {
   loading: false,
-  token: null,
+  token: tokenFromStorage || null,
+  isLogged: !!tokenFromStorage, // true si on a un token, false sinon
   profile: null,
-  error: "",
+  error: null,
 };
 
 export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
   async ({ email, password }) => {
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+    const responseAPI = await fetchWithAuth("/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
+    console.log(responseAPI);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Erreur de connexion");
+    if (responseAPI.status !== 200) {
+      throw new Error(responseAPI.message || "Erreur de connexion");
     }
-    return data;
+
+    return responseAPI;
   },
 );
 
 export const fetchUserProfile = createAsyncThunk(
   "auth/fetchUserProfile",
-  async (_, { getState }) => {
-    const token = getState().auth.token;
+  async () => {
+    const responseAPI = await fetchWithAuth("/profile", { method: "POST" });
+    console.log(responseAPI);
 
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
+    if (responseAPI.status !== 200) {
       throw new Error("Impossible de récupérer le profil");
     }
-    return data;
+
+    return responseAPI;
   },
 );
 
@@ -54,7 +50,9 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.profile = null;
-      state.error = "";
+      state.error = null;
+      state.isLogged = false;
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -66,6 +64,8 @@ const authSlice = createSlice({
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.loading = false;
       state.token = action.payload.body.token;
+      state.isLogged = true;
+      localStorage.setItem("token", action.payload.body.token);
     });
     builder.addCase(fetchLogin.rejected, (state, action) => {
       state.loading = false;
