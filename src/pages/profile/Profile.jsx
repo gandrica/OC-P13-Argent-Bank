@@ -1,9 +1,37 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchUserProfile } from "../../features/auth/authSlice";
 import ProfileHeader from "../../components/profileHeader/ProfileHeader";
 import AccountComponent from "../../components/accountComponent/AccountComponent";
 
 function Profile() {
-  const profile = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const token = useSelector((state) => state.auth.token);
+  const profile = useSelector((state) => state.auth.profile);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    if (token && !profile) {
+      dispatch(fetchUserProfile());
+    }
+  }, [token, profile, dispatch, navigate]);
+
+  console.log(token, profile);
+  if (!profile) {
+    return (
+      <main className="main bg-dark">
+        <h2 style={{ color: "white", textAlign: "center", paddingTop: "2rem" }}>
+          Chargement de votre espace...
+        </h2>
+      </main>
+    );
+  }
   const accounts = {
     account1: {
       accountTitle: "Argent Bank Checking (x8349)",

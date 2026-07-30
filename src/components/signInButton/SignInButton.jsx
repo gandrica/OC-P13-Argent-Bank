@@ -1,23 +1,29 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { profile_search } from "../../features/authentification/authentificationSlice";
+import { fetchLogin } from "../../features/auth/authSlice";
 import styles from "./SignInButton.module.scss";
-function SignInButton() {
+function SignInButton({ login }) {
+  const { email, password } = login;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  {
-    /* <button className="signInButton">Sign In</button> */
-  }
-  // { firstName: "Tony", lastName: "Jarvis" }
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await dispatch(fetchLogin({ email, password })).unwrap();
+      navigate("/profile");
+    } catch (error) {
+      console.error(
+        "Identifiants incorrects, on ne change pas de page.",
+        error,
+      );
+    }
+  };
   return (
-    <Link
-      to="/profile"
-      onClick={() =>
-        dispatch(profile_search({ firstName: "Tony", lastName: "Jarvis" }))
-      }
-      className={styles.signInButton}
-    >
+    <button onClick={handleLogin} className={styles.signInButton}>
       Sign In
-    </Link>
+    </button>
   );
 }
 

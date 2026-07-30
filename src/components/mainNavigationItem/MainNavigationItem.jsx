@@ -1,14 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { profile_search } from "../../features/authentification/authentificationSlice";
+import { logout } from "../../features/auth/authSlice";
 import styles from "./MainNavigationItem.module.scss";
 
 function MainNavigationItem() {
-  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const firstName = useSelector((state) => state.auth.profile?.firstName);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <div>
-      {!profile.firstName && (
+      {/* Si l'utilisateur N'EST PAS connecté */}
+      {!firstName && (
         <Link className={styles.mainNavItem} to="/login">
           <i
             className="fa fa-user-circle"
@@ -17,22 +27,20 @@ function MainNavigationItem() {
           Sign In
         </Link>
       )}
-      {profile.firstName && (
-        <div>
+
+      {/* Si l'utilisateur EST connecté */}
+      {firstName && (
+        <div style={{ display: "flex", alignItems: "center" }}>
           <Link className={styles.mainNavItem} to="/profile">
             <i
               className="fa fa-user-circle"
               style={{ marginRight: "0.2rem" }}
             ></i>
-            {profile.firstName}
+            {firstName}
           </Link>
-          <Link
-            className={styles.mainNavItem}
-            onClick={() => {
-              dispatch(profile_search(""));
-            }}
-            to="/"
-          >
+
+          {/* 3. LE BOUTON D'ACTION : On lie notre fonction handleLogout au clic */}
+          <Link className={styles.mainNavItem} to="/" onClick={handleLogout}>
             <i className="fa fa-sign-out" style={{ marginRight: "0.2rem" }}></i>
             Sign Out
           </Link>
