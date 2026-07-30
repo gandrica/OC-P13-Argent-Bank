@@ -19,11 +19,6 @@ export const fetchLogin = createAsyncThunk(
       method: "POST",
       body: JSON.stringify({ email, password }),
     });
-    console.log(responseAPI);
-
-    if (responseAPI.status !== 200) {
-      throw new Error(responseAPI.message || "Erreur de connexion");
-    }
 
     return responseAPI;
   },
@@ -33,11 +28,17 @@ export const fetchUserProfile = createAsyncThunk(
   "auth/fetchUserProfile",
   async () => {
     const responseAPI = await fetchWithAuth("/profile", { method: "POST" });
-    console.log(responseAPI);
 
-    if (responseAPI.status !== 200) {
-      throw new Error("Impossible de récupérer le profil");
-    }
+    return responseAPI;
+  },
+);
+export const updateUserProfile = createAsyncThunk(
+  "auth/updateUserProfile",
+  async ({ firstName, lastName }) => {
+    const responseAPI = await fetchWithAuth("/profile", {
+      method: "PUT",
+      body: JSON.stringify({ firstName, lastName }),
+    });
 
     return responseAPI;
   },
@@ -81,6 +82,18 @@ const authSlice = createSlice({
       state.profile = action.payload.body;
     });
     builder.addCase(fetchUserProfile.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    // Update User Profile
+    builder.addCase(updateUserProfile.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateUserProfile.fulfilled, (state, action) => {
+      state.loading = false;
+      state.profile = action.payload.body;
+    });
+    builder.addCase(updateUserProfile.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

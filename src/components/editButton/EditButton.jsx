@@ -1,6 +1,10 @@
 import styles from "./EditButton.module.scss";
-function EditButton() {
-  return <button className={styles.editButton}>Edit Name</button>;
+function EditButton({ setIsEditing }) {
+  return (
+    <button className={styles.editButton} onClick={() => setIsEditing(true)}>
+      Edit Name
+    </button>
+  );
 }
 
 export default EditButton;

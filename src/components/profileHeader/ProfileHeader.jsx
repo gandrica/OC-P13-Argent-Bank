@@ -1,15 +1,68 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateUserProfile } from "../../features/auth/authSlice";
 import EditButton from "../editButton/EditButton";
 import styles from "./ProfileHeader.module.scss";
+
 function ProfileHeader({ profile }) {
-  const { firstName, lastName } = profile;
+  const [isEditing, setIsEditing] = useState(false);
+  const [firstName, setFirstName] = useState(profile?.firstName || "");
+  const [lastName, setLastName] = useState(profile?.lastName || "");
+
+  const dispatch = useDispatch();
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    if (firstName.trim() && lastName.trim()) {
+      await dispatch(updateUserProfile({ firstName, lastName }));
+      setIsEditing(false);
+    }
+  };
+
   return (
     <div className={styles.header}>
-      <h1>
-        Welcome back
-        <br />
-        {firstName} {lastName}!
-      </h1>
-      <EditButton />
+      {!isEditing ? (
+        <>
+          <h1>
+            Welcome back
+            <br />
+            {profile?.firstName} {profile?.lastName}!
+          </h1>
+          <EditButton setIsEditing={setIsEditing} />
+        </>
+      ) : (
+        <>
+          <h1>Edit user info</h1>
+          <form onSubmit={handleSave} className="editForm">
+            <div className="inputGroup">
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder={profile?.firstName}
+              />
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder={profile?.lastName}
+              />
+            </div>
+            <div className="buttonGroup">
+              <button type="submit" className="saveButton">
+                Save
+              </button>
+              <button
+                type="button"
+                className="cancelButton"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 }

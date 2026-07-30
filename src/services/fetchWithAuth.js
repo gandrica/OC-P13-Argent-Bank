@@ -16,7 +16,13 @@ export const fetchWithAuth = async (endpoint, options = {}) => {
     ...options,
     headers,
   });
+
   const data = await response.json();
+  if (data.status !== 200) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+    throw new Error(data.message);
+  }
 
   return data;
 };
