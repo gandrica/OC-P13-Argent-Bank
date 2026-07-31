@@ -1,14 +1,23 @@
+@use "./sass/variables" as *;
 html {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $color-text-dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body,
 #root {
-  margin: 0;
+  font-family: $font-family;
+  color: $color-text-dark;
+  background-color: $color-bg-page;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

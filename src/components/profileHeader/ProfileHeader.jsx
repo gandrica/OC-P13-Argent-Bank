@@ -32,9 +32,9 @@ function ProfileHeader({ profile }) {
         </>
       ) : (
         <>
-          <h1>Edit user info</h1>
-          <form onSubmit={handleSave} className="editForm">
-            <div className="inputGroup">
+          <h1>Welcome back</h1>
+          <form onSubmit={handleSave} className={styles.editForm}>
+            <div className={styles.inputGroup}>
               <input
                 type="text"
                 value={firstName}
@@ -48,7 +48,7 @@ function ProfileHeader({ profile }) {
                 placeholder={profile?.lastName}
               />
             </div>
-            <div className="buttonGroup">
+            <div className={styles.buttonGroup}>
               <button type="submit" className="saveButton">
                 Save
               </button>

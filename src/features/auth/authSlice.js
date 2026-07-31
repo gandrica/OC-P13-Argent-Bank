@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchWithAuth } from "../../services/fetchWithAuth";
 
 const tokenFromStorage = localStorage.getItem("token");
-console.log(tokenFromStorage);
 
 const initialState = {
   loading: false,

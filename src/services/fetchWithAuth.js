@@ -1,6 +1,5 @@
 export const fetchWithAuth = async (endpoint, options = {}) => {
   const token = localStorage.getItem("token");
-  console.log(token);
   const baseURL = "http://localhost:3001/api/v1/user";
 
   const headers = {
@@ -21,7 +20,13 @@ export const fetchWithAuth = async (endpoint, options = {}) => {
   if (data.status !== 200) {
     localStorage.removeItem("token");
     window.location.href = "/login";
-    throw new Error(data.message);
+    if (data.status === 401) {
+      throw new Error("Jeton invalide ou inexistant.");
+    } else if (data.status === 404) {
+      throw new Error("Compte introuvable.");
+    } else {
+      throw new Error(data.message);
+    }
   }
 
   return data;

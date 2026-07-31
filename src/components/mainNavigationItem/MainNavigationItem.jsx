@@ -16,30 +16,26 @@ function MainNavigationItem() {
   };
 
   return (
-    <div>
+    <div className={styles.mainNavItemContainer}>
       {/* Si l'utilisateur N'EST PAS connecté */}
       {!firstName && (
         <Link className={styles.mainNavItem} to="/login">
           <i
             className="fa fa-user-circle"
-            style={{ marginRight: "0.2rem" }}
+            style={{ marginRight: "0.4rem", fontSize: "1.1rem" }}
           ></i>
           Sign In
         </Link>
       )}
-
-      {/* Si l'utilisateur EST connecté */}
       {firstName && (
         <div style={{ display: "flex", alignItems: "center" }}>
           <Link className={styles.mainNavItem} to="/profile">
             <i
               className="fa fa-user-circle"
-              style={{ marginRight: "0.2rem" }}
+              style={{ marginRight: "0.4rem", fontSize: "1.1rem" }}
             ></i>
             {firstName}
           </Link>
-
-          {/* 3. LE BOUTON D'ACTION : On lie notre fonction handleLogout au clic */}
           <Link className={styles.mainNavItem} to="/" onClick={handleLogout}>
             <i className="fa fa-sign-out" style={{ marginRight: "0.2rem" }}></i>
             Sign Out

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchUserProfile } from "../../features/auth/authSlice";
 import ProfileHeader from "../../components/profileHeader/ProfileHeader";
 import AccountComponent from "../../components/accountComponent/AccountComponent";
+import styles from "./Profile.module.scss";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -22,10 +23,9 @@ function Profile() {
     }
   }, [token, profile, dispatch, navigate]);
 
-  console.log(token, profile);
   if (!profile) {
     return (
-      <main className="main bg-dark">
+      <main className="main">
         <h2 style={{ color: "white", textAlign: "center", paddingTop: "2rem" }}>
           Chargement de votre espace...
         </h2>
@@ -50,7 +50,7 @@ function Profile() {
     },
   };
   return (
-    <main className="main bg-dark">
+    <main className={styles.main}>
       <ProfileHeader profile={profile} />
       <h2 className="sr-only">Accounts</h2>
       <AccountComponent account={accounts.account1} />
