@@ -6,6 +6,10 @@
   padding: 5px 20px;
   background-color: $color-bg-card;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  @media (max-width: 440px) {
+    display: flex;
+    flex-direction: column;
+  }
   a {
     font-weight: bold;
     color: #2c3e50;

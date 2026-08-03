@@ -28,12 +28,9 @@ function MainNavigationItem() {
         </Link>
       )}
       {firstName && (
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div className={styles.mainNavItemContainerConnected}>
           <Link className={styles.mainNavItem} to="/profile">
-            <i
-              className="fa fa-user-circle"
-              style={{ marginRight: "0.4rem", fontSize: "1.1rem" }}
-            ></i>
+            <i className="fa fa-user-circle"></i>
             {firstName}
           </Link>
           <Link className={styles.mainNavItem} to="/" onClick={handleLogout}>

@@ -1,8 +1,19 @@
-.signInContent {
-  box-sizing: border-box;
-  background-color: white;
-  width: 300px;
-  margin: 0 auto;
-  margin-top: 3rem;
-  padding: 2rem;
+@use "../../sass/variables" as *;
+.main {
+  flex: 1;
+  background-color: $color-bg-page-dark;
+  .signInContent {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
+    @media (max-width: 300px) {
+      width: 100%;
+    }
+    i {
+      font-size: 1rem;
+    }
+  }
 }

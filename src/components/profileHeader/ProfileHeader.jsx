@@ -54,7 +54,7 @@ function ProfileHeader({ profile }) {
               </button>
               <button
                 type="button"
-                className="cancelButton"
+                className={styles.cancelButton}
                 onClick={() => setIsEditing(false)}
               >
                 Cancel

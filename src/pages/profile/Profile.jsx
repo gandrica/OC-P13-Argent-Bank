@@ -25,7 +25,7 @@ function Profile() {
 
   if (!profile) {
     return (
-      <main className="main">
+      <main className={styles.main}>
         <h2 style={{ color: "white", textAlign: "center", paddingTop: "2rem" }}>
           Chargement de votre espace...
         </h2>

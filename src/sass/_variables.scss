@@ -1,10 +1,15 @@
 $color-primary: #00bc77;
-$color-primary-dark: #03a86c;
+$color-primary-light: #03a86c;
+$color-primary-dark: #005834;
 // $color-primary: #6458f5;
 // $color-primary-dark: #5b4fd8;
+$color-bg-home-page: #ffffff;
 $color-bg-page: #dfe6ed; // Fond gris/bleu clair de la page
+$color-bg-page-dark: #12002b; // Fond noir/clair de la page
 $color-bg-card: #ffffff; // Fond blanc des cartes, nav et footer
 $color-text-dark: #2c3e50; // Couleur du texte principal
+$color-text-light: #ffffff; // Couleur du texte principal
+
 $color-text-muted: #555555; // Texte secondaire (ex: Available Balance)
 $color-border-light: #ccd4e0; // Bordure des inputs et cartes
 $font-family: "Avenir", Helvetica, Arial, sans-serif;
