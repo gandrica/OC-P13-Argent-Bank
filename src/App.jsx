@@ -12,7 +12,7 @@ import "./App.css";
 function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  const userProfile = useSelector((state) => state.auth.userProfile);
+  const userProfile = useSelector((state) => state.auth.profile);
 
   useEffect(() => {
     if (token && !userProfile) {

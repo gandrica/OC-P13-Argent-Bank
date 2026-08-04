@@ -70,6 +70,7 @@ const authSlice = createSlice({
     builder.addCase(fetchLogin.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      window.location.href = "/login";
     });
 
     // Fetch User Profile
@@ -83,6 +84,7 @@ const authSlice = createSlice({
     builder.addCase(fetchUserProfile.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      window.location.href = "/login";
     });
     // Update User Profile
     builder.addCase(updateUserProfile.pending, (state) => {
@@ -95,6 +97,7 @@ const authSlice = createSlice({
     builder.addCase(updateUserProfile.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      window.location.href = "/login";
     });
   },
 });
